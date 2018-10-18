@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div>点击获取任务</div>
+    <p></p>
+    <script>
+        var isSafari = navigator.userAgent.indexOf("Safari") > -1 && navigator.userAgent.indexOf("Chrome") < 0;
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURIComponent(r[2]);
+            return null;
+        }
+        if (isSafari) {
+            var data = GetQueryString('message');
+            console.log(data)
+            localStorage.setItem('task', data);
+        }
+        document.querySelector('div').addEventListener('click', function () {
+            document.querySelector('p').innerHTML = localStorage.getItem('task');
+        }, false);
+    </script>
+</body>
+</html>

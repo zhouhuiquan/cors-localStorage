@@ -1,0 +1,6 @@
+# 说明:
+**这个是用来解决跨域localStorage共享的问题的,解决思路是引入iframe,让localStorage存在两个域名,然后用postMessage发送数据到iframe页面,iframe页面用脚本获取数据然后储存到iframe所引用页面的的localStorage中**
+
+*同时苹果浏览器不支持postMessage向iframe发送数据,所以用query参数,然后在目标页面首行加入取到数据,存入localStorage*
+
+siteA是主网站,siteB是目标网站(里面一个首页用来验证数据,一个为iframe准备执行代码,然后储存数据到localStorage),网站的地址已经写死,根据具体情况修改

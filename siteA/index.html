@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cross domain</title>
+</head>
+<body>
+    <h2>Status</h2>
+    <p></p>
+    <a href="http://192.168.100.38:9902">去index_b查看结果</a>
+    <iframe src="http://192.168.100.38:9902/get.html" frameborder="0"></iframe>
+    <script>
+        var isSafari = navigator.userAgent.indexOf("Safari") > -1 && navigator.userAgent.indexOf("Chrome") < 0; 
+        window.onload = function(){
+           if(isSafari) {
+             var aobj = document.querySelector('a');
+              var href = 'http://192.168.100.38:9902/?message='+ encodeURIComponent('jogging, reading and writing');
+              aobj.setAttribute('href', href);
+           } else {
+              //在页面加载完成后主页面向iframe发送请求
+              window.frames[0].postMessage('jogging, reading and writing','http://192.168.100.38:9902');
+            }
+        }
+
+        // 主页面监听message事件,
+        window.addEventListener('message', function(e){
+            var data = e.data;
+            document.querySelector('p').innerHTML = data;
+        }, false);
+    </script>
+</body>
+</html>
